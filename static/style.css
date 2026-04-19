@@ -2,8 +2,8 @@
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #0f0f0f;
-  color: #e8e8e8;
+  background: #fff;
+  color: #111;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -18,12 +18,12 @@ header h1 {
   font-size: 2.2rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  color: #fff;
+  color: #111;
 }
 
 .tagline {
   margin-top: 0.5rem;
-  color: #888;
+  color: #666;
   font-size: 1rem;
 }
 
@@ -48,15 +48,15 @@ main {
   gap: 0;
   max-width: 520px;
   margin: 0 auto;
-  border: 1px solid #333;
+  border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
-  background: #1a1a1a;
+  background: #f5f5f5;
 }
 
 .at-prefix {
   padding: 0 0.6rem 0 1rem;
-  color: #666;
+  color: #999;
   font-size: 1.1rem;
   user-select: none;
 }
@@ -66,12 +66,12 @@ main {
   background: transparent;
   border: none;
   outline: none;
-  color: #fff;
+  color: #111;
   font-size: 1.1rem;
   padding: 0.75rem 0.5rem;
 }
 
-.input-row input::placeholder { color: #555; }
+.input-row input::placeholder { color: #aaa; }
 
 .input-row button {
   background: #ff0000;
@@ -88,7 +88,7 @@ main {
 
 .hint {
   margin-top: 0.6rem;
-  color: #555;
+  color: #aaa;
   font-size: 0.85rem;
 }
 
@@ -100,11 +100,11 @@ main {
 /* Error */
 .error-box {
   margin-top: 1.5rem;
-  background: #2a1010;
-  border: 1px solid #5c1a1a;
+  background: #fff0f0;
+  border: 1px solid #fcc;
   border-radius: 8px;
   padding: 1rem 1.2rem;
-  color: #f87171;
+  color: #c00;
   font-size: 0.95rem;
 }
 
@@ -115,7 +115,7 @@ main {
   gap: 1.2rem;
   margin-top: 2.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #eee;
 }
 
 .avatar {
@@ -128,12 +128,12 @@ main {
 .channel-header h2 {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #fff;
+  color: #111;
 }
 
 .meta {
   margin-top: 0.25rem;
-  color: #666;
+  color: #999;
   font-size: 0.9rem;
 }
 
@@ -142,15 +142,15 @@ main {
   margin-top: 2.5rem;
   text-align: center;
   padding: 2rem;
-  background: #1a1a1a;
+  background: #f9f9f9;
   border-radius: 12px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #eee;
 }
 
 .stat-number {
   font-size: 4rem;
   font-weight: 800;
-  color: #ff4444;
+  color: #e00;
   line-height: 1;
   letter-spacing: -2px;
 }
@@ -158,13 +158,13 @@ main {
 .stat-label {
   margin-top: 0.4rem;
   font-size: 1.1rem;
-  color: #aaa;
+  color: #555;
 }
 
 .stat-sub {
   margin-top: 0.6rem;
   font-size: 0.85rem;
-  color: #555;
+  color: #aaa;
 }
 
 /* Table */
@@ -175,7 +175,7 @@ main {
 .table-section h3 {
   font-size: 1rem;
   font-weight: 600;
-  color: #888;
+  color: #aaa;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
@@ -189,20 +189,20 @@ table {
 
 thead th {
   text-align: left;
-  color: #555;
+  color: #aaa;
   font-weight: 500;
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid #eee;
 }
 
 thead th.num { text-align: right; }
 
 tbody tr {
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid #f5f5f5;
   transition: background 0.1s;
 }
 
-tbody tr:hover { background: #161616; }
+tbody tr:hover { background: #fafafa; }
 
 tbody td {
   padding: 0.65rem 0.75rem;
@@ -210,32 +210,32 @@ tbody td {
 }
 
 .rank {
-  color: #444;
+  color: #ccc;
   font-size: 0.8rem;
   width: 1.5rem;
 }
 
 .title-cell a {
-  color: #e8e8e8;
+  color: #111;
   text-decoration: none;
 }
 
-.title-cell a:hover { color: #fff; text-decoration: underline; }
+.title-cell a:hover { color: #000; text-decoration: underline; }
 
 .pub-date {
   display: block;
-  color: #555;
+  color: #bbb;
   font-size: 0.78rem;
   margin-top: 0.2rem;
 }
 
-.num { text-align: right; color: #aaa; }
+.num { text-align: right; color: #888; }
 
-.collective { color: #e8e8e8; }
+.collective { color: #111; }
 
 .sub-num {
   display: block;
-  color: #555;
+  color: #bbb;
   font-size: 0.78rem;
 }
 
@@ -245,20 +245,56 @@ tbody td {
 }
 
 .another a {
-  color: #555;
+  color: #aaa;
   text-decoration: none;
   font-size: 0.9rem;
 }
 
-.another a:hover { color: #aaa; }
+.another a:hover { color: #666; }
 
 footer {
   padding: 1.5rem;
   text-align: center;
-  color: #444;
+  color: #ccc;
   font-size: 0.8rem;
-  border-top: 1px solid #1a1a1a;
+  border-top: 1px solid #eee;
 }
 
-footer a { color: #555; }
+footer a { color: #bbb; }
 footer a:hover { color: #888; }
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  body { background: #0f0f0f; color: #e8e8e8; }
+  header h1 { color: #fff; }
+  .tagline { color: #888; }
+  .input-row { border-color: #333; background: #1a1a1a; }
+  .input-row input { color: #fff; }
+  .input-row input::placeholder { color: #555; }
+  .hint { color: #555; }
+  .hint code { color: #888; }
+  .error-box { background: #2a1010; border-color: #5c1a1a; color: #f87171; }
+  .channel-header { border-bottom-color: #222; }
+  .channel-header h2 { color: #fff; }
+  .meta { color: #666; }
+  .big-stat { background: #1a1a1a; border-color: #2a2a2a; }
+  .stat-number { color: #ff4444; }
+  .stat-label { color: #aaa; }
+  .stat-sub { color: #555; }
+  .table-section h3 { color: #888; }
+  thead th { color: #555; border-bottom-color: #222; }
+  tbody tr { border-bottom-color: #1a1a1a; }
+  tbody tr:hover { background: #161616; }
+  .rank { color: #444; }
+  .title-cell a { color: #e8e8e8; }
+  .title-cell a:hover { color: #fff; }
+  .pub-date { color: #555; }
+  .num { color: #aaa; }
+  .collective { color: #e8e8e8; }
+  .sub-num { color: #555; }
+  .another a { color: #555; }
+  .another a:hover { color: #aaa; }
+  footer { color: #444; border-top-color: #1a1a1a; }
+  footer a { color: #555; }
+  footer a:hover { color: #888; }
+}
