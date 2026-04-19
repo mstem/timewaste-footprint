@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attention Footprint</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <h1>Attention Footprint</h1>
+    <p class="tagline">How much collective human time have your videos consumed?</p>
+  </header>
+
+  <main>
+    <form method="POST" action="/analyze" class="search-form">
+      <div class="input-row">
+        <span class="at-prefix">@</span>
+        <input
+          type="text"
+          name="handle"
+          placeholder="channelhandle"
+          value="{{ handle or '' }}"
+          autofocus
+          required
+        >
+        <button type="submit">Analyze</button>
+      </div>
+      <p class="hint">Enter a YouTube channel handle, e.g. <code>@veritasium</code></p>
+    </form>
+
+    {% if error %}
+    <div class="error-box">{{ error }}</div>
+    {% endif %}
+
+    {% if results %}
+    {% set ch = results.channel %}
+    {% set tc = results.total_collective %}
+
+    <section class="channel-header">
+      {% if ch.thumbnail %}
+      <img src="{{ ch.thumbnail }}" alt="{{ ch.title }}" class="avatar" referrerpolicy="no-referrer" onerror="this.style.display='none'">
+      {% endif %}
+      <div>
+        <h2>{{ ch.title }}</h2>
+        <p class="meta">
+          {{ "{:,}".format(ch.subscriber_count) }} subscribers &nbsp;·&nbsp;
+          {{ results.videos_analyzed }} most recent videos analyzed
+        </p>
+      </div>
+    </section>
+
+    <section class="big-stat">
+      <div class="stat-number">{{ tc.primary }}</div>
+      <div class="stat-label">of human attention consumed</div>
+      <div class="stat-sub">
+        = {{ tc.lifetimes }} human lifetimes (70 yr avg) &nbsp;·&nbsp;
+        {{ tc.hours }} total hours watched
+      </div>
+    </section>
+
+    <section class="table-section">
+      <h3>Top 10 most attention-consuming videos</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Views</th>
+            <th>Duration</th>
+            <th>Collective watch time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for v in results.top_videos %}
+          <tr>
+            <td class="rank">{{ loop.index }}</td>
+            <td class="title-cell">
+              <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" rel="noopener">
+                {{ v.title }}
+              </a>
+              <span class="pub-date">{{ v.published_at }}</span>
+            </td>
+            <td class="num">{{ "{:,}".format(v.views) }}</td>
+            <td class="num">{{ v.duration_fmt }}</td>
+            <td class="num collective">
+              <strong>{{ v.collective_fmt.primary }}</strong>
+              <span class="sub-num">({{ v.collective_fmt.hours }} hrs)</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <p class="another"><a href="/">← Analyze another channel</a></p>
+    {% endif %}
+  </main>
+
+  <footer>
+    <p>Uses the <a href="https://developers.google.com/youtube/v3" target="_blank" rel="noopener">YouTube Data API v3</a>. Analyzes the 50 most recent videos.</p>
+  </footer>
+</body>
+</html>
