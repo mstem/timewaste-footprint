@@ -35,19 +35,55 @@ main {
   padding: 0 1.5rem 4rem;
 }
 
+/* Platform grid */
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.platform-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1.2rem 1.2rem 1rem;
+}
+
+.platform-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 0.9rem;
+  color: #333;
+}
+
+.tiktok-btn {
+  display: block;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.15s;
+}
+
+.tiktok-btn:hover { background: #333; }
+
 /* Search form */
 .search-form {
-  margin-top: 1.5rem;
+  margin-top: 0;
   text-align: center;
 }
 
 .input-row {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0;
-  max-width: 520px;
-  margin: 0 auto;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -264,10 +300,18 @@ footer a { color: #bbb; }
 footer a:hover { color: #888; }
 
 /* Dark mode */
+@media (max-width: 580px) {
+  .platform-grid { grid-template-columns: 1fr; }
+}
+
 @media (prefers-color-scheme: dark) {
   body { background: #0f0f0f; color: #e8e8e8; }
   header h1 { color: #fff; }
   .tagline { color: #888; }
+  .platform-card { border-color: #2a2a2a; }
+  .platform-label { color: #ccc; }
+  .tiktok-btn { background: #e8e8e8; color: #111; }
+  .tiktok-btn:hover { background: #fff; }
   .input-row { border-color: #333; background: #1a1a1a; }
   .input-row input { color: #fff; }
   .input-row input::placeholder { color: #555; }
@@ -297,4 +341,18 @@ footer a:hover { color: #888; }
   footer { color: #444; border-top-color: #1a1a1a; }
   footer a { color: #555; }
   footer a:hover { color: #888; }
+}
+
+/* Privacy page prose */
+.prose h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+.prose h3 { font-size: 1rem; font-weight: 600; margin: 1.5rem 0 0.4rem; color: #555; }
+.prose p, .prose ul { font-size: 0.95rem; line-height: 1.6; color: #444; margin-bottom: 0.5rem; }
+.prose ul { padding-left: 1.4rem; }
+.prose li { margin-bottom: 0.25rem; }
+.prose a { color: #111; }
+.prose .updated { color: #aaa; font-size: 0.85rem; margin-top: -0.5rem; margin-bottom: 1.5rem; }
+@media (prefers-color-scheme: dark) {
+  .prose h3 { color: #888; }
+  .prose p, .prose ul { color: #aaa; }
+  .prose a { color: #e8e8e8; }
 }

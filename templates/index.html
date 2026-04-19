@@ -13,29 +13,54 @@
   </header>
 
   <main>
-    <form method="POST" action="/analyze" class="search-form">
-      <div class="input-row">
-        <span class="at-prefix">@</span>
-        <input
-          type="text"
-          name="handle"
-          placeholder="channelhandle"
-          value="{{ handle or '' }}"
-          autofocus
-          required
-        >
-        <button type="submit">Analyze</button>
+    <div class="platform-grid">
+
+      <!-- YouTube -->
+      <div class="platform-card">
+        <div class="platform-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff0000"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+          YouTube
+        </div>
+        <form method="POST" action="/analyze" class="search-form">
+          <div class="input-row">
+            <span class="at-prefix">@</span>
+            <input
+              type="text"
+              name="handle"
+              placeholder="channelhandle"
+              value="{{ handle or '' }}"
+              required
+            >
+            <button type="submit">Analyze</button>
+          </div>
+        </form>
+        <p class="hint">Analyzes any public channel's 50 most recent videos</p>
       </div>
-      <p class="hint">Enter a YouTube channel handle, e.g. <code>@veritasium</code></p>
-    </form>
+
+      <!-- TikTok -->
+      <div class="platform-card">
+        <div class="platform-label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3.3A4.9 4.9 0 0 1 14.7 0h-3.6v16.4a2.9 2.9 0 0 1-2.9 2.5 2.9 2.9 0 0 1-2.9-2.9 2.9 2.9 0 0 1 2.9-2.9c.3 0 .5 0 .8.1V9.5a6.5 6.5 0 0 0-.8 0A6.5 6.5 0 0 0 1.7 16a6.5 6.5 0 0 0 6.5 6.5A6.5 6.5 0 0 0 14.7 16V8.2a8.4 8.4 0 0 0 4.9 1.6V6.2a4.9 4.9 0 0 1-3.1-1.1 4.9 4.9 0 0 0 3.1 1.1z"/></svg>
+          TikTok
+        </div>
+        <a href="/tiktok/connect" class="tiktok-btn">Connect your TikTok</a>
+        <p class="hint">Log in to analyze your own videos</p>
+      </div>
+
+    </div>
 
     {% if error %}
     <div class="error-box">{{ error }}</div>
     {% endif %}
 
+    {% if tt_error %}
+    <div class="error-box">{{ tt_error }}</div>
+    {% endif %}
+
     {% if results %}
     {% set ch = results.channel %}
     {% set tc = results.total_collective %}
+    {% set is_tiktok = results.platform == 'tiktok' %}
 
     <section class="channel-header">
       {% if ch.thumbnail %}
@@ -44,7 +69,7 @@
       <div>
         <h2>{{ ch.title }}</h2>
         <p class="meta">
-          {{ "{:,}".format(ch.subscriber_count) }} subscribers &nbsp;·&nbsp;
+          {% if ch.subscriber_count %}{{ "{:,}".format(ch.subscriber_count) }} subscribers &nbsp;·&nbsp;{% endif %}
           {{ results.videos_analyzed }} most recent videos analyzed
         </p>
       </div>
@@ -68,7 +93,7 @@
             <th>Title</th>
             <th>Views</th>
             <th>Duration</th>
-            <th>Collective watch time</th>
+            <th class="num">Collective watch time</th>
           </tr>
         </thead>
         <tbody>
@@ -76,9 +101,11 @@
           <tr>
             <td class="rank">{{ loop.index }}</td>
             <td class="title-cell">
-              <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" rel="noopener">
-                {{ v.title }}
-              </a>
+              {% if is_tiktok %}
+              <a href="https://www.tiktok.com/@_/video/{{ v.id }}" target="_blank" rel="noopener">{{ v.title }}</a>
+              {% else %}
+              <a href="https://www.youtube.com/watch?v={{ v.id }}" target="_blank" rel="noopener">{{ v.title }}</a>
+              {% endif %}
               <span class="pub-date">{{ v.published_at }}</span>
             </td>
             <td class="num">{{ "{:,}".format(v.views) }}</td>
@@ -98,7 +125,11 @@
   </main>
 
   <footer>
-    <p>Uses the <a href="https://developers.google.com/youtube/v3" target="_blank" rel="noopener">YouTube Data API v3</a>. Analyzes the 50 most recent videos.</p>
+    <p>
+      Uses the <a href="https://developers.google.com/youtube/v3" target="_blank" rel="noopener">YouTube Data API v3</a>
+      and <a href="https://developers.tiktok.com" target="_blank" rel="noopener">TikTok API</a>.
+      &nbsp;·&nbsp; <a href="/privacy">Privacy Policy</a>
+    </p>
   </footer>
 </body>
 </html>
